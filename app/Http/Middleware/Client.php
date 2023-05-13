@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+// use Auth;
 
 class Client
 {
@@ -19,23 +20,18 @@ class Client
     {
         
         if(!Auth::check()){
-            return redirect()->route('login');
+            return redirect()->route('home');
         }
         $user=Auth::user();
-        if($user->role==5){
+        if($user->role==1){
             return $next($request);
         }
         if($user->role==2){
-            return redirect()->route('admin');
+            return redirect()->route('driver');
         }
         if($user->role==3){
-            return redirect()->route('depthead');
+            return redirect()->route('admin');
         }
-        if($user->role==4){
-            return redirect()->route('staff');
-        }
-        if($user->role==1){
-            return redirect()->route('superadmin');
-        }
+       
     }
 }

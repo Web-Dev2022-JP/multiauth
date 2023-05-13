@@ -41,28 +41,22 @@ class LoginController extends Controller
             $user_role=Auth::user()->role;
             switch($user_role){
                 case 1:
-                    return redirect('/superadmin');
-                    break;
-                case 2:
-                    return redirect('/admin');
-                    break;
-                case 3: 
-                    return redirect('/depthead');
-                    break;
-                case 4:
-                    return redirect('/staff');
-                    break;
-                case 5: 
                     return redirect('/client');
-                    break;
+                    // break;
+                case 2:
+                    return redirect('/driver');
+                    // break;
+                case 3: 
+                    return redirect('/admin');
+                    // break;
                 default:
                    Auth::logout();
-                   return redirect('/login')->with('error','oops something went wrong');
+                   return redirect()->route('home')->with('error','oops something went wrong');
 
             }
 
         }else{
-            return redirect('login')->with('error','The credentials do not match our records');
+            return redirect()->route('home')->with('error','The credentials do not match our records');
         }
     
    }

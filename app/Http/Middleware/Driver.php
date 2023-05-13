@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+// use Auth;
 
-class Staff
+class Driver
 {
     /**
      * Handle an incoming request.
@@ -19,23 +20,19 @@ class Staff
     {
         
         if(!Auth::check()){
-            return redirect()->route('login');
+            // old way
+            return redirect()->route('home');
         }
         $user=Auth::user();
-        if($user->role==4){
+        if($user->role==2){
             return $next($request);
+        }
+        if($user->role==1){
+            return redirect()->route('client');
         }
         if($user->role==2){
             return redirect()->route('admin');
         }
-        if($user->role==3){
-            return redirect()->route('depthead');
-        }
-        if($user->role==1){
-            return redirect()->route('superadmin');
-        }
-        if($user->role==5){
-            return redirect()->route('client');
-        }
+        
     }
 }
